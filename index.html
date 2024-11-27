@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rip</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=MonteCarlo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <h1 class="header"></h1>
+    <div class="container">
+        <h1><span id="rip-word">rip</span> <i class="bi bi-volume-up-fill" id="audioButton"></i></h1>
+        <p>/rɪp/ <i>verb</i></p>
+        <ol>
+            <li>to perform or complete an action
+                <ul>
+                    <li>I'm going to go rip this essay. <span class="chevron"></span></li>
+                    <li class="hidden-li">He ripped the White Spot.</li>
+                    <li class="hidden-li">Synonyms: execute, carry out, perform</li>
+                </ul>
+            </li>
+            <li>to purchase or express intent to purchase an item
+                <ul>
+                    <li>I have to go rip some gas. <span class="chevron"></span></li>
+                    <li class="hidden-li">He ripped a new pair of shoes.</li>
+                    <li class="hidden-li">Synonyms: buy, purchase, acquire</li>
+                </ul>
+            </li>
+            <li>to go smewhere or assert a desire to go somewhere
+                <ul>
+                    <li>Do you want to rip the farmer's market? <span class="chevron"></span></li>
+                    <li class="hidden-li">He ripped to the gym.</li>
+                    <li class="hidden-li">Synonyms: go, travel, move</li>
+                </ul>
+            </li>
+            <li>to use or implement something
+                <ul>
+                    <li>I might rip this software for my next project. <span class="chevron"></span></li>
+                    <li class="hidden-li">We ripped four paddles yesterday during pickleball.</li>
+                    <li class="hidden-li">Synonyms: use, implement, apply</li>
+                </ul>
+            </li>
+            <li>to consume something
+                <ul>
+                    <li>She ripped a whole bottle of wine before the function. <span class="chevron"></span></li>
+                    <li class="hidden-li">He ripped a whole Double Gus by himself.</li>
+                    <li class="hidden-li">Synonyms: eat, drink, consume</li>
+                </ul>
+            </li>
+            <li>to pull apart; to tear or be torn violently and quickly
+                <ul>
+                    <li>He ripped the paper in half. <span class="chevron"></span></li>
+                    <li class="hidden-li">She ripped the fabric of her jeans.</li>
+                    <li class="hidden-li">Synonyms: tear, pull apart, shred</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    <h6 class="footer">made with <i style="color: red" class="bi bi-heart-fill"></i> by <a href="https://github.com/rushilwiz/rip" target="_blank">@rushilwiz</a></h6>
+<script>
+
+    const files = [
+        'audio/beckett1.mp3',
+        'audio/beckett2.mp3',
+        'audio/churchill.mp3',
+        'audio/rea.mp3',
+        'audio/rushil.mp3'
+    ]
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.chevron').forEach(function(chevron) {
+            chevron.addEventListener('click', function(event) {
+                event.preventDefault();
+                var li = this.parentElement;
+                var ul = li.parentElement;
+                var hiddenItems = ul.querySelectorAll('li.hidden-li');
+                hiddenItems.forEach(function(item) {
+                    if (item.style.display === 'none' || item.style.display === '') {
+                        item.style.display = 'list-item';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                this.classList.toggle('expanded');
+            });
+        });
+
+        document.getElementById('audioButton').addEventListener('click', function() {
+            addAudio();
+        });
+    });
+
+    function startRainbowAnimation() {
+        var ripWord = document.getElementById('rip-word');
+        ripWord.classList.add('rainbow-animation');
+
+        setTimeout(function() {
+            ripWord.classList.remove('rainbow-animation');
+        }, 5000);
+    }
+
+
+    let audioObjects = files.map(function(file) {
+        var audio = new Audio(file);
+        audio.preload = 'auto';
+        return audio;
+    });
+
+    let timesPlayed = 0;
+
+    let addAudio = () => {
+        if (++timesPlayed % 5 == 0) {
+            audioObjects.forEach((a) => {
+                a.play();
+                startRainbowAnimation();
+            })
+        } else {
+            audioObjects[Math.floor(Math.random() * audioObjects.length)].play();
+        }
+    }
+</script>
+</body>
+</html>
